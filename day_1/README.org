@@ -1,0 +1,9 @@
+* Day 1
+
+[[https://adventofcode.com/2025/day/1][Link to problem]]
+
+** Part 1
+
+When working on this, I thought of the dial like a old school combination lock that I used in high school. The password for those was specific numbers you had to turn to in order, but, for this, we are told how many clicks to the left and how many clicks to the right we have to go.
+
+
