@@ -6,4 +6,13 @@
 
 When working on this, I thought of the dial like a old school combination lock that I used in high school. The password for those was specific numbers you had to turn to in order, but, for this, we are told how many clicks to the left and how many clicks to the right we have to go.
 
+Anyway, they want to know how many times the dial ends on zero.
+
+** Part 2
+
+Now they want to know how many times the dial lands on or turns past zero.
+
+
+** Dial class
+In this class, I was curious if I could create a dial using the getters and setters of class properties. It worked out well. The logic of the "circular dial" is all in the setter, which led to a really clean design.
 
