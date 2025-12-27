@@ -1,0 +1,45 @@
+* Day 2
+
+[[https://adventofcode.com/2025/day/2][Link to problem]]
+
+** Part 1
+This problem is about looking at different ranges of number and counting the numbers (IDs) deemed invalid.
+
+For now, invalid numbers of ones that repeat twice like 55 (5 twice) and 6464 (64 twice).
+
+*** Thoughts
+For some reason I read this problem and thought "Let me solve it with an iterator!".
+
+To be fair, solving it with an iterator makes sense if you think of the problem as "In this range of numbers, only give me the ones I care about". With that in mind, your iterator should only return invalid ids.
+
+** Part 2
+For part 2, they updated the rules for invalid ids. Now, any number that repeats at least twice is invalid. For example, 12341234 (1234 two times), 123123123 (123 three times), 1212121212 (12 five times) and 1111111 (1 seven times).
+
+*** Thoughts
+I got stuck on this problem for a while because I tried to be clever.
+
+I looked at the example numbers and thought that the number of repeats is equal to the count of the digit that is repeated the least. For example, in 12341234 each number has a count of 2. In 112112112 (112 three times) the number of 2 has a count of 3.
+
+This worked for almost all cases, but it fails for the case of 11221122 (1122 twice), but the count of 1 is 4.
+
+It took me a long time to realize that the digit that is repeated the least gives you the upper bound of the number of repeats you can see and that the number of repeats can be a factor of the upper bound.
+
+This error is captured in ~def invalid_id~ and is fixed in ~def invalid_id3~.
+
+*** Lesson Learned
+**** Do the straight forwars solution first
+I went the clever rought because I didn't want to check all the possible factors of each number. This sounds like it will be too slow to work.
+
+It turns out that not only was it fast enough to solve the problem, it is also faster than the fixed clevel solution. I assume that this is because number of operations needed to filter how many factors i check is more than just checking all the factors to begin with. So the thing that I thought would save me time actual made the program slower.
+
+** InvalidIds class
+Again, I wanted to solve the problem with an iterator. This one is kind of cool because you can pass a list of functions to it that will be used as the invalid id /checks/.
+
+** StringParts class
+When thinking about how to verify if a number is made up of repeat numbers, I kept thinking that you find the part part and then compare it to the rest of the parts. But, what is a good way to break a string into parts?
+
+To be clear, I wanted to solve this in general and not just for factor of the length of the string, which means that you have to deal with the edge cases that might leas to index out of bounds errors.
+
+To avoid that, I decided to solve this with an iterator (hahaha). The iterator builds the string up to the desired index (length of the part) and then returns it. If there are enough characters left to fill the part, it returns what it has and any ~next~ call after that will raise ~StopIteration~, which will end the iteration.
+
+I figured it made sense because you can call ~next~ to get the first part and then compare the other parts to the first part via iterating over them.

@@ -1,14 +1,3 @@
-def starts_with_0(data):
-    if data.startswith("0"):
-        return True
-    else:
-        return False
-
-def repeat_twice(num):
-    data = str(num)
-    half = len(data) // 2
-    return data[:half] == data[half:]
-    
 class InvalidIds:
     def __init__(self, start, end, checks=None):
         self.start = start
@@ -39,21 +28,3 @@ class InvalidIds:
                 result = self.current
             
         return self.current
-
-if __name__ == "__main__":
-    import fileinput
-
-    count = 0
-    for line in fileinput.input():
-        if line == "\n":
-            break
-        
-        for ranges in line.split(","):
-            start, stop = ranges.split("-")
-
-            for ids in InvalidIds(int(start), int(stop), checks=[repeat_twice]):
-                print(ids)
-                count += ids
-
-    print(count)
-    

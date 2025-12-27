@@ -1,6 +1,9 @@
 import fileinput
 from collections import Counter
 
+from invalid_id import InvalidIds
+
+
 def get_num_of_parts(data):
     counter = Counter(data)
     values = list(counter.items())
@@ -32,6 +35,7 @@ class StringParts:
             else:
                 result += self.data[self.index]
         return result
+
 
 def has_repeats(data, parts):
     result = True
@@ -93,36 +97,6 @@ def invalid_id(raw_data):
             break
     return result
 
-class InvalidIds:
-    def __init__(self, start, end, checks=None):
-        self.start = start
-        self.current = start - 1
-        self.end = end
-        self.checks = checks if checks else []
-
-    def invalid(self, value):
-        result = False
-        for check in self.checks:
-            if check(value):
-                result = True
-                break
-        return result
-        
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        result = None
-        while result is None:
-            self.current += 1
-
-            if self.current > self.end:
-                raise StopIteration
-
-            if self.invalid(self.current):
-                result = self.current
-            
-        return self.current
 
 def main(check_func):
     count = 0
